@@ -1,0 +1,34 @@
+.backgroundImg{
+    background-image: url('../images/mountains.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin-top: -56px;
+}
+
+.welcomePageText p{
+    padding-top: 35%;
+    margin-left: 10%;
+    color: aliceblue;
+    font-size: 60px;
+}
+
+h1{
+    padding-left: 10%;
+    padding-top: 56px;
+}
+
+p{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 10%;
+
+}
+
+.windowBlock{
+    height: 100vh;
+}
+
+
+
+
