@@ -27,7 +27,7 @@ const NavigationBarOut = () => {
                         <Nav.Link href="#accommodation">Ubytování</Nav.Link>
                         <Nav.Link href="#contact">Kontakt</Nav.Link>
                     </Nav>
-                    <Button variant="outline-secondary">Přihlásit se</Button>
+                    <Button variant="outline-secondary" href="/login">Přihlásit se</Button>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
