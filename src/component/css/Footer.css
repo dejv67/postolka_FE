@@ -1,0 +1,26 @@
+.footer{
+    background-color: black;
+    color: grey;
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leftSide{
+    margin-left: 10%;
+}
+.rightSide{
+    margin-right: 10%;
+}
+.icon{
+    color: grey;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+p{
+    padding-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+}

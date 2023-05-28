@@ -1,4 +1,3 @@
-import "./css/NavigationBar.css"
 import logo from "../images/postolka_logo.jpg"
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -26,11 +25,10 @@ const NavigationBarOut = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="#info">Info</Nav.Link>
                         <Nav.Link href="#accommodation">Ubytování</Nav.Link>
-                        <Nav.Link href="#photoGallery">Fotogalerie</Nav.Link>
                         <Nav.Link href="#contact">Kontakt</Nav.Link>
                     </Nav>
+                    <Button variant="outline-secondary">Přihlásit se</Button>
                 </Navbar.Collapse>
-                <Button variant="outline-secondary">Přihlásit se</Button>
             </Container>
         </Navbar>
     )

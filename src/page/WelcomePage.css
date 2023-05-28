@@ -13,20 +13,67 @@
     font-size: 60px;
 }
 
+.windowBlock{
+    height: 100vh;
+}
+
+.windowBlock p{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 10%;
+}
+
 h1{
     padding-left: 10%;
     padding-top: 56px;
 }
 
-p{
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-top: 10%;
-
+.contact{
+    height: 90vh;
 }
 
-.windowBlock{
-    height: 100vh;
+iframe{
+    margin-top: 60px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 66px;
+}
+
+.contactInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.contactLeftSide{
+    display: flex;
+    flex-direction: column;
+}
+
+.contactSocMedia{
+    display: flex;
+    flex-direction: column;
+}
+.contactInfo a {
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+/*700px width and less*/
+@media (max-width: 900px){
+    .contact iframe{
+        display: none !important;
+    }
+}
+
+/*400px height and less*/
+@media (max-height: 600px){
+    .contact iframe{
+        display: none !important
+    }
 }
 
 
