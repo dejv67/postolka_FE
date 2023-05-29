@@ -5,6 +5,9 @@ import LoginPage from "./page/LoginPage.jsx";
 import ErrorPage from "./page/Error";
 import ResetPassPage from "./page/ResetPassPage.jsx";
 import RegistrationPage from "./page/RegistrationPage.jsx";
+import HomePage from "./page/HomePage.jsx";
+import MyReservationsPage from "./page/MyReservationsPage.jsx";
+
 
 function App() {
 
@@ -15,6 +18,8 @@ function App() {
               <Route path= "/login" element={<LoginPage/>}/>
               <Route path= "/resetPass" element={<ResetPassPage/>}/>
               <Route path= "/registration" element={<RegistrationPage/>}/>
+              <Route path= "/home" element={<HomePage/>}/>
+              <Route path= "/myReservation" element={<MyReservationsPage/>}/>
               <Route path= "*" element={<ErrorPage/>}/>
           </Routes>
       </BrowserRouter>

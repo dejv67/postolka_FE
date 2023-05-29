@@ -1,0 +1,13 @@
+.navInBar{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+
+/*400px width and less*/
+@media (max-width: 400px){
+    .navInBar{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,21 @@
+.default-btn{
+    padding: 25px 70px;
+    background-color: green;
+    color: transparent; /* Make the text transparent */
+}
+
+.default-btn:hover{
+    background-color: darkgreen;
+}
+
+.clicked-btn {
+    padding: 25px 70px;
+    background-color: orange;
+    color: transparent; /* Make the text transparent */
+}
+
+.reserved-btn{
+    padding: 25px 70px;
+    background-color: grey;
+    color: transparent; /* Make the text transparent */
+}
