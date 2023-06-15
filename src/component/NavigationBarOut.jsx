@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Button} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 
 const NavigationBarOut = () => {
@@ -27,7 +28,9 @@ const NavigationBarOut = () => {
                         <Nav.Link href="#accommodation">Ubytování</Nav.Link>
                         <Nav.Link href="#contact">Kontakt</Nav.Link>
                     </Nav>
-                    <Button variant="outline-secondary" href="/login">Přihlásit se</Button>
+                    <Link to="/login">
+                        <Button variant="outline-secondary">Přihlásit se</Button>
+                    </Link>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
