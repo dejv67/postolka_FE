@@ -1,13 +1,20 @@
 import "./css/CustomTableFiels.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
-const CustomTableField = () => {
+const CustomTableField = (args) => {
 
     const [reserved, setReserved] = useState(false);
     const [clicked, setClicked] = useState(false);
+
+    useEffect(() => {
+        args.isReserved ? setReserved(true) : setReserved(false);
+        setClicked(false);
+    }, [args]);
+
     const handleClick = () => {
         clicked ? setClicked(false) : setClicked(true);
     };
+
 
     const getBtnClass = reserved ? 'reserved-btn' : (clicked ? 'clicked-btn' : 'default-btn')
 

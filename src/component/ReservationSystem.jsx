@@ -4,8 +4,8 @@ import 'rsuite/dist/rsuite.min.css';
 import {addDays, endOfWeek, startOfWeek} from "date-fns";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import {useState} from "react";
-import CustomTableField from "./CustomTableField.jsx"
+import {useEffect, useState} from "react";
+import RoomRow from "./RoomRow.jsx";
 
 const { allowedMaxDays, beforeToday, combine } =
     DateRangePicker;
@@ -49,49 +49,8 @@ const predefinedRanges = [
     }
     ]
 
-    // TOHLE JSOU JEN DATA PRO VYVOJ!!!
-const rooms = [
-        {id: 1, name: "Pokoj 1", state: "obsazeno"},
-        {id: 2, name: "Pokoj 2", state: "volno"},
-        {id: 3, name: "Pokoj 3", state: "obsazeno"},
-        {id: 4, name: "Pokoj 4", state: "schvalovani"},
-        {id: 5, name: "Pokoj 5", state: "volno"}
-]
-
-// const Row = (props) => {
-//     const{name, state} = props;
-//     return(
-//         <tr>
-//             <td>{name}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//             <td>{state}</td>
-//         </tr>
-//     )
-// }
-
-// const Table = (props) => {
-//     const {data} = props
-//     return(
-//         <table>
-//             <tbody>
-//             {data.map(row =>
-//                 <Row name = {row.name} state = {row.state}/>
-//             )}
-//             </tbody>
-//         </table>
-//     )
-// }
-
-
-
 const ReservationSystem = () => {
 
-    // const[rows, setRows] = useState(rooms)
     const [areInitialDatesUsed, setAreInitialDatesUsed] = useState(false);
 
     const createInitialDatesRange = () =>{
@@ -127,6 +86,21 @@ const ReservationSystem = () => {
 
     const [days, setDays] = useState(createInitialDatesRange);
 
+    const [loading, setLoading] = useState(true)
+    const [rooms, setRooms] = useState([]);
+
+    useEffect(() => {
+        fetchRooms();
+    }, []);
+
+    const fetchRooms = async () => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+        const result = await fetch(`${backendUrl}/room`);
+        setRooms(await (result.json()));
+        setLoading(false);
+    };
+
     return(
         // Vyber data
         <div className="resSysDiv">
@@ -143,6 +117,8 @@ const ReservationSystem = () => {
                 onClean = {() => {!areInitialDatesUsed ? setDays(createInitialDatesRange) : null}}
             />
 
+            {loading && <div>Loading ...</div>}
+
             {/*Tabulka obsazenosti*/}
             <Table responsive >
                 <thead>
@@ -158,13 +134,8 @@ const ReservationSystem = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {rooms.map((room, index) => (
-                        <tr key={index}>
-                            <th>{room.name}</th>
-                            {Array.from({ length: days.length }).map((_, index) => (
-                                <td key={index}>{<CustomTableField/>}</td>
-                            ))}
-                        </tr>
+                    {rooms.map((room) => (
+                        <RoomRow key={room.id} room={room} days={days} />
                     ))}
                 </tbody>
             </Table>
