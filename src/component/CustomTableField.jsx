@@ -5,14 +5,21 @@ const CustomTableField = (args) => {
 
     const [reserved, setReserved] = useState(false);
     const [clicked, setClicked] = useState(false);
+    const date = args.date;
 
     useEffect(() => {
         args.isReserved ? setReserved(true) : setReserved(false);
-        setClicked(false);
+        //setClicked(false);
     }, [args]);
+
+    useEffect(() => {
+        //args.isReserved ? setReserved(true) : setReserved(false);
+        setClicked(false);
+    }, [args.date]);
 
     const handleClick = () => {
         clicked ? setClicked(false) : setClicked(true);
+        args.callbackClicked(date, clicked);
     };
 
 

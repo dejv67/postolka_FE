@@ -1,13 +1,18 @@
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import CustomTableField from "./CustomTableField.jsx";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 
 const RoomRow = (args) => {
 
     const [reservations, setReservations] = useState([]);
+    const isIntervalRight = useRef(true);
+    let clickedDates = [];
 
     useEffect(() => {
         fetchData(args.room.id, args.days[0], args.days[args.days.length-1]);
     },[args.days]);
+
 
     // Calling backend for reservation each room
     const fetchData = async (id, fromDate, toDate) => {
@@ -33,8 +38,8 @@ const RoomRow = (args) => {
     };
 
     const getCustomTableField = (index) => {
+        const dateToCheck = new Date(formatDate(args.days[index]));
         if (reservations != null && reservations.length > 0){
-            const dateToCheck = new Date(formatDate(args.days[index]));
             let isAlreadyReserved = false;
 
             reservations.forEach((reservation) => {
@@ -46,9 +51,9 @@ const RoomRow = (args) => {
                     }
                 });
 
-            return <CustomTableField isReserved={isAlreadyReserved} reservations={reservations} />;
+            return <CustomTableField isReserved={isAlreadyReserved} date={formatDate(dateToCheck)} callbackClicked={checkDateInterval} />;
         }else{
-            return <CustomTableField isReserved={false}/>
+            return <CustomTableField isReserved={false} date={formatDate(dateToCheck)} callbackClicked={checkDateInterval}/>
         }
     }
 
@@ -61,14 +66,65 @@ const RoomRow = (args) => {
         return formattedDate;
     };
 
+    const checkDateInterval = (date, isClicked) => {
+        //condition is !isClicked because useState in CustomTableField change clicked variable after finish function in (handleClick)
+        if (!isClicked) {
+            clickedDates = [...clickedDates, new Date(date)];
+        } else {
+            const foundIndex = clickedDates.findIndex(item => formatDate(item) == date);
+            if (foundIndex !== -1) {
+                const tempClickedDates = clickedDates.filter((item, index) => index !== foundIndex);
+                clickedDates = tempClickedDates;
+            }
+        }
+
+        const sortedClickedDates = clickedDates.sort((a, b) => a - b);
+        if (sortedClickedDates.length > 1) {
+            let isRight = true;
+            for (let i = 1; i <= sortedClickedDates.length - 1; i++) {
+                const testDate = new Date();
+                testDate.setFullYear(sortedClickedDates[i - 1].getFullYear());
+                testDate.setMonth(sortedClickedDates[i - 1].getMonth())
+                testDate.setDate(sortedClickedDates[i - 1].getDate() + 1);
+                if (formatDate(testDate) != formatDate(sortedClickedDates[i])) {
+                    isRight = false;
+                }
+            }
+            isIntervalRight.current = isRight;
+        } else {
+            isIntervalRight.current = true;
+        }
+
+        let tempFormatedDates = [...sortedClickedDates];
+        for (let i = 0; i <= tempFormatedDates.length -1; i++){
+            const tempDate = formatDate(tempFormatedDates[i]);
+            tempFormatedDates[i] = tempDate;
+        }
+        args.callback(isIntervalRight.current, args.room.id, tempFormatedDates);
+    }
+
+    const renderTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            <span>počet postelí: {args.room.numOfBeds}</span>
+            <br/>
+            <span>poznámka: {args.room.description}</span>
+        </Tooltip>
+    );
+
     return <>
         <tr>
-            <th>{args.room.name}</th>
+            <OverlayTrigger
+                placement="left"
+                delay={{ show: 50, hide: 500 }}
+                overlay={renderTooltip}
+            >
+                <th>{args.room.name}</th>
+            </OverlayTrigger>
             {Array.from({ length: args.days.length}).map((_, index) => (
                 <td key={index}>{getCustomTableField(index)}</td>
             ))}
         </tr>
     </>
-}
+};
 
 export default RoomRow;

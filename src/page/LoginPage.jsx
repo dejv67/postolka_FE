@@ -12,6 +12,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [beError, setBeError] = useState('');
 
+    //send email and pass to backend
     const fetchData = () => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
 

@@ -29,3 +29,17 @@ td{
 button{
     width: 100%;
 }
+
+
+/*900px width and less*/
+@media (max-width: 1150px){
+    .resSysDiv{
+        margin-top: 2% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+        margin: auto;
+        width: 100%;
+    }
+
+}
