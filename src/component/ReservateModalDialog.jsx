@@ -24,8 +24,8 @@ const ReservateModalDialog = (args) => {
     const fetchData = () => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-        const author_id = 1;
-        const modifUser = "David";
+        const author_id = localStorage.getItem('userId');
+        const modifUser = localStorage.getItem('userFirstName');
         const createDate = new Date();
         const modifDate = new Date();
         const state = "REQUESTED";
@@ -65,7 +65,7 @@ const ReservateModalDialog = (args) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Group>
                         <Form.Label>od</Form.Label>
                         <Form.Control
                             type="text"
@@ -81,11 +81,11 @@ const ReservateModalDialog = (args) => {
                             style={{ pointerEvents: 'none' }}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Group>
                         <Form.Label>Pokoje:</Form.Label>
                         <Form.Control type="text" placeholder= {args.resinfo.rooms} readOnly style={{ pointerEvents: 'none' }}/>
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Group>
                         <Form.Label>Poznámka:</Form.Label>
                         <Form.Control as="textarea" rows={3} value={note} onChange={(e) => {setNote(e.target.value);}}/>
                     </Form.Group>

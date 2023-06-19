@@ -24,14 +24,6 @@ const LoginPage = () => {
             body: JSON.stringify({username, password}),
         };
 
-        const requestOptionsUser = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        };
-
         fetch(`${backendUrl}/login/`, requestOptions)
             .then((response) => {
                 if (response.ok) {
@@ -43,7 +35,6 @@ const LoginPage = () => {
             })
             .then((data) => {
                 localStorage.setItem('token', data.token);
-
                 const requestOptionsUser = {
                     method: 'GET',
                     headers: {
@@ -51,6 +42,22 @@ const LoginPage = () => {
                         //'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 };
+
+                fetch(`${backendUrl}/user?email=${username}`)
+                    .then(async (response) => {
+                            if (response.status === 200) {
+                                const result = (await response.json());
+                                localStorage.setItem('userId', result.id);
+                                localStorage.setItem('userFirstName', result.name);
+                                localStorage.setItem('userSurname', result.surname);
+                                localStorage.setItem('userRole', result.role);
+                            } else {
+                                throw new Error("Error with loading user");
+                            }
+                        }
+                    )
+
+                console.log(localStorage.getItem('userFirstName'));
                 navigate('/home');
             })
             .catch((error) => {

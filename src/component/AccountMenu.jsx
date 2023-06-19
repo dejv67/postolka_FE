@@ -23,7 +23,13 @@ export default function AccountMenu() {
     };
 
     const logOut = () => {
+        //TODO smazat i jmeno, prijmeni, id, roli
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userFirstName');
+        localStorage.removeItem('userSurname');
+        localStorage.removeItem('userRole');
+
         navigate('/');
     };
 
@@ -81,6 +87,11 @@ export default function AccountMenu() {
                 {/*<MenuItem onClick={handleClose}>*/}
                 {/*    <Avatar /> Profil*/}
                 {/*</MenuItem>*/}
+                <MenuItem  style={{ pointerEvents: 'none' }}>
+                    {localStorage.getItem('userFirstName')}
+                    <p>&nbsp;</p>
+                    {localStorage.getItem('userSurname')}
+                </MenuItem>
                 <Divider />
                 <MenuItem onClick={logOut}>
                     <ListItemIcon>

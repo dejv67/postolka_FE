@@ -64,7 +64,6 @@ const ReservationSystem = () => {
     const alertVariant = useRef('');
     const alertValue = useRef('');
     const [showAlert, setShowAlert] = useState(false);
-    const setClicked = useRef(false);
 
     const deleteRoomDates = () => {
         for (let i = 0; i <= rowsIntervalStates.current.length -1; i++){
@@ -135,21 +134,6 @@ const ReservationSystem = () => {
             rowsIntervalStates.current = [...rowsIntervalStates.current, {id: room.id, name: room.name, isIntervalRight: true, dates: []}]
         ));
     }, [rooms]);
-
-    useEffect(() => {
-        // Show the alert
-        setShowAlert(true);
-
-        // Hide the alert after 3 seconds
-        const timeout = setTimeout(() => {
-            setShowAlert(false);
-        }, 3000);
-
-        // Clean up the timeout
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, []);
 
     const fetchRooms = async () => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -255,6 +239,7 @@ const ReservationSystem = () => {
     return(
         // Vyber data
         <div className="resSysDiv">
+            {alertValue.current && (<Alert style={{width:"70%"}} variant={alertVariant.current} onClose={() => alertValue.current = ''} dismissible>{alertValue.current}</Alert>)}
             <h3>Vyber datum</h3>
             <h6>(max 7 dnů)</h6>
             <DateRangePicker
@@ -286,7 +271,7 @@ const ReservationSystem = () => {
                 </thead>
                 <tbody>
                     {rooms.map((room) => (
-                        <RoomRow key={room.id} room={room} days={days} callback={handleRoomValueChange} clicked={setClicked.current} />
+                        <RoomRow key={room.id} room={room} days={days} callback={handleRoomValueChange}/>
                     ))}
                 </tbody>
             </Table>
@@ -301,7 +286,6 @@ const ReservationSystem = () => {
             </Button>
             {intervalError && <p style={{color:"red"}}>{intervalError}</p>}
             <br/>
-            {alertValue.current && (<Alert variant={alertVariant.current} onClose={() => alertValue.current = ''} dismissible>{alertValue.current}</Alert>)}
             <ReservateModalDialog
                 show={modalShow}
                 onHide={() => setModalShow(false)}
