@@ -3,14 +3,16 @@ import Image from 'react-bootstrap/Image';
 import logo from "../images/postolka_logo.jpg"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import { useState} from "react";
+import {  useNavigate } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
 
 const LoginPage = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [beError, setBeError] = useState('');
+    const navigate = useNavigate();
 
     //send email and pass to backend
     const fetchData = () => {
@@ -20,6 +22,14 @@ const LoginPage = () => {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password}),
+        };
+
+        const requestOptionsUser = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         };
 
         fetch(`${backendUrl}/login/`, requestOptions)
@@ -33,7 +43,15 @@ const LoginPage = () => {
             })
             .then((data) => {
                 localStorage.setItem('token', data.token);
-                window.location.href = '/home';
+
+                const requestOptionsUser = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        //'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                };
+                navigate('/home');
             })
             .catch((error) => {
                 // Handle the error
@@ -61,9 +79,9 @@ const LoginPage = () => {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Heslo</Form.Label>
                         <Form.Control required type="password" placeholder="Password" value={password} onChange={(e) => {setPassword(e.target.value); setBeError('')}} />
-                        <Link to="/resetPass">
+                        <Nav.Link onClick={() => navigate('/resetPass')} style={{color:"blue"}}>
                             Zapomněl jsi heslo?
-                        </Link>
+                        </Nav.Link>
                     </Form.Group>
                     <Button variant="success" type="submit">
                         Přihlásit se
@@ -72,9 +90,9 @@ const LoginPage = () => {
             </div>
             <div className="newRegistration">
                 <h6>Jsi tu poprvé?</h6>
-                <Link to="/registration">
+                <Nav.Link onClick={() => navigate('/registration')} style={{color:"blue"}}>
                     Zaregistruj se.
-                </Link>
+                </Nav.Link>
             </div>
             {beError && <p style={{color:"red"}}>{beError}</p>}
         </div>

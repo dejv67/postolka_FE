@@ -3,10 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {Button} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 const NavigationBarOut = () => {
+
+    const navigate = useNavigate();
 
     return(
         <Navbar bg="white" expand="lg" sticky="top">
@@ -28,9 +30,9 @@ const NavigationBarOut = () => {
                         <Nav.Link href="#accommodation">Ubytování</Nav.Link>
                         <Nav.Link href="#contact">Kontakt</Nav.Link>
                     </Nav>
-                    <Link to="/login">
-                        <Button variant="outline-secondary">Přihlásit se</Button>
-                    </Link>
+                    <Nav.Link>
+                        <Button variant="outline-secondary" onClick={() =>  navigate('/login')}>Přihlásit se</Button>
+                    </Nav.Link>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
