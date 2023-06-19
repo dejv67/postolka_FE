@@ -86,9 +86,10 @@ const LoginPage = () => {
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Heslo</Form.Label>
                         <Form.Control required type="password" placeholder="Password" value={password} onChange={(e) => {setPassword(e.target.value); setBeError('')}} />
-                        <Nav.Link onClick={() => navigate('/resetPass')} style={{color:"blue"}}>
-                            Zapomněl jsi heslo?
-                        </Nav.Link>
+                        {/*TODO dodelat reset hesla skrze email*/}
+                        {/*<Nav.Link onClick={() => navigate('/resetPass')} style={{color:"blue"}}>*/}
+                        {/*    Zapomněl jsi heslo?*/}
+                        {/*</Nav.Link>*/}
                     </Form.Group>
                     <Button variant="success" type="submit">
                         Přihlásit se

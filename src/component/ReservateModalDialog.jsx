@@ -17,7 +17,6 @@ const ReservateModalDialog = (args) => {
             .catch((error) => {
                 console.error('Request failed:', error);
             });
-
     };
 
     //send POST method to backend

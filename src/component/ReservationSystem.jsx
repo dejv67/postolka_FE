@@ -116,14 +116,6 @@ const ReservationSystem = () => {
     const [loading, setLoading] = useState(true)
     const [rooms, setRooms] = useState([]);
 
-    //TODO nacpat
-    //         isAnyRowIntervalFalse.current = false;
-    //         haveRoomsSameInterval.current = true;
-    //         deleteRoomDates();
-    //         do useEffectu a ten spoustet jen na urcitou zmenu, ale treba po tlacitku Rezervovat to nedelat, jen treba pri zemene datumu
-    //         !!Zaroven taky vyresit prebarveni policek zpet jen pri zmene datumu, ne pri preklesneni kvuli ModalDialogu nebo kvuli chybove hlasce... Predat
-    //         skrz props/args a pak to co se zmenilo dat jako podminku do useEffectu
-
     useEffect(() => {
         fetchRooms();
     }, []);
