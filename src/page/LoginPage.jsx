@@ -35,15 +35,16 @@ const LoginPage = () => {
             })
             .then((data) => {
                 localStorage.setItem('token', data.token);
+
                 const requestOptionsUser = {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        //'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
                 };
 
-                fetch(`${backendUrl}/user?email=${username}`)
+                fetch(`${backendUrl}/user?email=${username}`, requestOptionsUser)
                     .then(async (response) => {
                             if (response.status === 200) {
                                 const result = (await response.json());
@@ -57,7 +58,6 @@ const LoginPage = () => {
                         }
                     )
 
-                console.log(localStorage.getItem('userFirstName'));
                 navigate('/home');
             })
             .catch((error) => {

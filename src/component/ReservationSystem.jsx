@@ -138,7 +138,15 @@ const ReservationSystem = () => {
     const fetchRooms = async () => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-        const result = await fetch(`${backendUrl}/room`);
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        };
+
+        const result = await fetch(`${backendUrl}/room`, requestOptions);
         setRooms(await (result.json()));
         setLoading(false);
     };

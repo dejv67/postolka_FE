@@ -26,7 +26,7 @@ const RoomRow = (args) => {
             }
         };
 
-        await fetch(`${backendUrl}/room/roomReservations?roomId=${id}&fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}`)
+        await fetch(`${backendUrl}/room/roomReservations?roomId=${id}&fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}`, requestOptions)
                 .then(async (response) => {
                 if (response.status === 200) {
                     setReservations((await response.json()));

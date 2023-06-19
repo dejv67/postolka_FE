@@ -35,7 +35,10 @@ const ReservateModalDialog = (args) => {
 
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
             body: JSON.stringify({author_id, createDate, fromDate, modifDate, modifUser, note, roomIds, state, toDate}),
         };
 
