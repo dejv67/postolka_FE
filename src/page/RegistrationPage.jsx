@@ -47,7 +47,7 @@ const RegistrationPage = () => {
             body: JSON.stringify({email, modifDate, name, password, role, surname})
         };
 
-        return fetch(`${backendUrl}/user/`, requestOptions)
+        return fetch(`${backendUrl}/user/registration/`, requestOptions)
             .then((response) => {
                 const responseStatus = response.status;
                 return responseStatus;
